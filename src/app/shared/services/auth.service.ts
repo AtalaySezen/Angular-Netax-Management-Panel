@@ -22,6 +22,42 @@ export class AuthService {
     )
   }
 
+  TokenIsValid(): Observable<any> {
+    return this.http.get<any>(environment.apiUrl + 'auth/me');
+  }
+
+  get token() {
+    const token = localStorage.getItem(`${this.authLocalStorageToken}-token`);
+    if (token != null) {
+      return token;
+    } else {
+      return '';
+    }
+  }
+
+  CheckTokenIsValid() {
+    this.TokenIsValid().subscribe({
+      next: async (data) => {
+        console.log(data);
+        return true;
+      }, error: (err) => {
+        this.LogOut();
+        console.error(err);
+        return false;
+      },
+    });
+  }
+
+  async GuardAuth(): Promise<boolean> {
+    if (this.token != '') {
+      this.CheckTokenIsValid();
+      return true;
+    } else {
+      await this.LogOut();
+      return await false;
+    }
+  }
+
   SetLocalStorageToken(user: user) {
     localStorage.setItem(`${this.authLocalStorageToken}-token`, user.accessToken);
     localStorage.setItem(`${this.authLocalStorageToken}-userId`, user.id.toString());
