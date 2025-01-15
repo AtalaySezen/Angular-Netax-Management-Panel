@@ -1,1 +1,23 @@
-<p>login works!</p>
+<form class="login-form" [formGroup]="loginForm">
+    <h3>Netax Giriş</h3>
+    <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Kullanıcı Adı</mat-label>
+        <input type="username" matInput formControlName="username">
+        @if (loginForm.get('username')?.hasError('required')) {
+        <mat-error>Kullanıcı adı eksik</mat-error>
+        }
+        @else if (loginForm.get('username')?.hasError('minlength')) {
+        <mat-error>Kullanıcı adı minimum 4 karakterden oluşmalı.</mat-error>
+        }
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Şifre</mat-label>
+        <input type="password" matInput formControlName="password">
+        @if (loginForm.get('password')?.hasError('required')) {
+        <mat-error>Şifre gerekli</mat-error>
+        }
+    </mat-form-field>
+    <div class="btn-flex">
+        <button mat-flat-button (click)="login()" [disabled]="loginForm.invalid">Giriş</button>
+    </div>
+</form>
