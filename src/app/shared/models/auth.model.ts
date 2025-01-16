@@ -14,10 +14,7 @@ export interface AuthData {
     image: string;
 }
 
-export interface user {
-    id: number;
-    accessToken: string;
-}
+
 export interface Auth<T> {
     id: number;
     data: AuthData;

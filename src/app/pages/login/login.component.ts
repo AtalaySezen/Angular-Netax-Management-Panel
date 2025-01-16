@@ -27,21 +27,13 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.Login(this.loginForm.value.username!, this.loginForm.value.password!).subscribe({
         next: data => {
-          const accessToken = data.accessToken;
-          const userId = data.id;
-          this.authService.SetLocalStorageToken({
-            accessToken: accessToken,
-            id: userId
-          });
+          this.authService.SetLocalStorageToken(data.accessToken);
           this.router.navigate(['home']);
         }, error: (err) => {
           console.error(err.error.message)
         }
       })
     }
-
   }
-
-
 
 }

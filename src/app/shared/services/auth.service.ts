@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
-import { Auth, AuthData, user } from '../models/auth.model';
+import { Auth, AuthData } from '../models/auth.model';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -58,9 +58,8 @@ export class AuthService {
     }
   }
 
-  SetLocalStorageToken(user: user) {
-    localStorage.setItem(`${this.authLocalStorageToken}-token`, user.accessToken);
-    localStorage.setItem(`${this.authLocalStorageToken}-userId`, user.id.toString());
+  SetLocalStorageToken(userToken: string) {
+    localStorage.setItem(`${this.authLocalStorageToken}-token`, userToken);
   }
 
   LogOut() {
