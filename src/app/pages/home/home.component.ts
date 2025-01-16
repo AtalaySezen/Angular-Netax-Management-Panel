@@ -13,6 +13,7 @@ import { HeaderComponent } from "../../shared/components/header/header.component
 import { MatSort } from '@angular/material/sort';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent {
   dataService = inject(DataService);
+  authService = inject(AuthService);
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort;

@@ -5,7 +5,7 @@
             <mat-label>Arama</mat-label>
             <input matInput (keyup)="applyFilter($event)" #input>
         </mat-form-field>
-        <button mat-flat-button>Ürün Ekle</button>
+        <button mat-flat-button *ngIf="authService.userRole =='admin'">Ürün Ekle</button>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort #firstSort="matSort">
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Ürün Adı </th>
@@ -18,10 +18,12 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef> İşlemler</th>
                 <td mat-cell *matCellDef="let element">
-                    <button class="btn-icon" mat-fab aria-label="Example icon button with a delete icon">
+                    <button *ngIf="authService.userRole != 'user'" class="btn-icon" mat-fab
+                        aria-label="Example icon button with a delete icon">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button class="btn-icon" mat-fab aria-label="Example icon button with a delete icon">
+                    <button *ngIf="authService.userRole =='admin'" class="btn-icon" mat-fab
+                        aria-label="Example icon button with a delete icon">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>

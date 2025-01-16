@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   http = inject(HttpClient);
   router = inject(Router);
+  userRole: string;
   authLocalStorageToken = `${environment.appVersion}-${environment.APP_KEY}`;
 
   Login(username: string, password: string): Observable<Auth<AuthData>> {
@@ -35,16 +36,18 @@ export class AuthService {
     }
   }
 
-  CheckTokenIsValid() {
-    this.TokenIsValid().subscribe({
-      next: async (data) => {
-        console.log(data);
-        return true;
-      }, error: (err) => {
-        this.LogOut();
-        console.error(err);
-        return false;
-      },
+  async CheckTokenIsValid(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.TokenIsValid().subscribe({
+        next: (data) => {
+          this.userRole = data.role;
+          resolve(true);
+        },
+        error: (err) => {
+          this.LogOut();
+          reject(false);
+        },
+      });
     });
   }
 
