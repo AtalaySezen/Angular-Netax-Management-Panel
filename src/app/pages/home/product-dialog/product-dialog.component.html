@@ -1,4 +1,14 @@
-<form class="product-form">
-    <button>Kaydet</button>
-    <button>Kapat</button>
+<form [formGroup]="productForm" class="product-form" (ngSubmit)="save()">
+    <mat-form-field>
+        <mat-label>Ürün Adı</mat-label>
+        <input formControlName="title" matInput>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Ürün Fiyatı</mat-label>
+        <input formControlName="price" type="number" matInput>
+    </mat-form-field>
+    <div class="button-group">
+        <button mat-flat-button [disabled]="productForm.invalid">{{ isEditMode ? 'Güncelle' : 'Kaydet' }}</button>
+        <button mat-flat-button (click)="close()">Kapat</button>
+    </div>
 </form>

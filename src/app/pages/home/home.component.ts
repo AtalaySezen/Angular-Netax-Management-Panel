@@ -14,6 +14,15 @@ import { MatSort } from '@angular/material/sort';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/services/auth.service';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { ProductDialogComponent } from './product-dialog/product-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +33,7 @@ import { AuthService } from '../../shared/services/auth.service';
 export class HomeComponent {
   dataService = inject(DataService);
   authService = inject(AuthService);
+  dialog = inject(MatDialog);
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort;
@@ -47,6 +57,44 @@ export class HomeComponent {
         console.error(err);
       }
     });
+  }
+
+  addNewProduct() {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      width: '600px',
+      height: 'auto',
+      data: {
+        mode: 'new'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result && result.event == 'success') {
+        this.getProductData(0, this.pageSize);
+      }
+    });
+  }
+
+  deleteProduct(id: number) {
+    console.log(id);
+  }
+
+  editProduct(title: string, price: number, id: number,) {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      width: '600px',
+      height: 'auto',
+      data: {
+        mode: 'edit',
+        product: { title: title, price: price, id: id }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result && result.event == 'success') {
+        this.getProductData(0, this.pageSize);
+      }
+    });
+
   }
 
   onPageChange(event: any): void {

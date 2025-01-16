@@ -15,3 +15,9 @@ export interface ProductResponse {
     limit: number;
     total: number;
 }
+
+export interface PutAddProduct {
+    title: string;
+    price: number;
+  }
+  
