@@ -14,15 +14,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/services/auth.service';
-import {
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -31,13 +25,16 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatSort) sort: MatSort;
   dataService = inject(DataService);
   authService = inject(AuthService);
   dialog = inject(MatDialog);
+  snackBar = inject(MatSnackBar);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
-  @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<Product>();
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   displayedColumns: string[] = ['title', 'price', 'actions'];
   pageSize: number = 12;
   totalItemCount: number = 0;
@@ -59,6 +56,28 @@ export class HomeComponent {
     });
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
+  onPageChange(event: any): void {
+    const skip = event.pageIndex * event.pageSize;
+    const limit = event.pageSize;
+    this.getProductData(skip, limit);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  deleteProduct(id: number) {
+    console.log(id);
+  }
+
   addNewProduct() {
     const dialogRef = this.dialog.open(ProductDialogComponent, {
       width: '600px',
@@ -70,13 +89,10 @@ export class HomeComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && result && result.event == 'success') {
+        this.openSnackBar('Başarılı', 'Ok');
         this.getProductData(0, this.pageSize);
       }
     });
-  }
-
-  deleteProduct(id: number) {
-    console.log(id);
   }
 
   editProduct(title: string, price: number, id: number,) {
@@ -91,20 +107,10 @@ export class HomeComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && result && result.event == 'success') {
+        this.openSnackBar('Başarılı', 'Ok');
         this.getProductData(0, this.pageSize);
       }
     });
-
   }
 
-  onPageChange(event: any): void {
-    const skip = event.pageIndex * event.pageSize;
-    const limit = event.pageSize;
-    this.getProductData(skip, limit);
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
 }

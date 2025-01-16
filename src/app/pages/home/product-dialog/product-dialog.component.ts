@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../../../shared/services/data.service';
+import { PutAddProduct } from '../../../shared/models/general.model';
 
 @Component({
   selector: 'app-product-dialog',
@@ -31,40 +32,26 @@ export class ProductDialogComponent {
     });
   }
 
+  submitData(data: PutAddProduct): void {
+    const request$ = this.isEditMode
+      ? this.dataService.PutProductData(this.data.product.id, data)
+      : this.dataService.AddNewProduct(data);
+
+    request$.subscribe({
+      next: (response) => this.dialogRef.close({ event: 'success', data: response }),
+      error: (err) => console.error(err),
+    });
+  }
+
   save(): void {
     if (this.productForm.valid) {
-      let data = {
-        title: this.productForm.get('title').value,
-        price: this.productForm.get('price').value
-      }
-
-      if (this.isEditMode) {
-        this.dataService.PutProductData(this.data.product.id, data).subscribe({
-          next: (data) => {
-            this.dialogRef.close(this.productForm.value);
-          },
-          error: (err) => {
-            console.error(err);
-          }
-        })
-
-      } else {
-        this.dataService.AddNewProduct(data).subscribe({
-          next: (data) => {
-            console.log(data);
-            this.dialogRef.close(this.productForm.value);
-          },
-          error: (err) => {
-            console.error(err);
-          }
-        })
-      }
+      const data: PutAddProduct = this.productForm.value;
+      this.submitData(data);
     }
   }
 
   close(): void {
     this.dialogRef.close();
   }
-
 
 }
