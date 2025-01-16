@@ -17,6 +17,7 @@ export interface ProductResponse {
 }
 
 export interface PutAddProduct {
+    id?:number;
     title: string;
     price: number;
   }

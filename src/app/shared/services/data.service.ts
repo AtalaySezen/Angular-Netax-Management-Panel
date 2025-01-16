@@ -21,4 +21,7 @@ export class DataService {
     return this.http.post<ProductResponse>(environment.apiUrl + `products/add`, data);
   }
 
+  DeleteProduct(id: number) {
+    return this.http.delete<ProductResponse>(environment.apiUrl + `products/${id}`);
+  }
 }

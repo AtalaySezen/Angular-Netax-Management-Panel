@@ -2,7 +2,7 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Product, ProductResponse } from '../../shared/models/general.model';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,6 +17,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -56,14 +57,7 @@ export class HomeComponent {
     });
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-    });
-  }
-
-  onPageChange(event: any): void {
+  onPageChange(event: PageEvent): void {
     const skip = event.pageIndex * event.pageSize;
     const limit = event.pageSize;
     this.getProductData(skip, limit);
@@ -74,8 +68,36 @@ export class HomeComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
   deleteProduct(id: number) {
-    console.log(id);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        message: 'Bu ürünü silmek istediğinizden emin misiniz?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.dataService.DeleteProduct(id).subscribe({
+          next: (data) => {
+            if (data) {
+              this.openSnackBar('Başarılı Bir Şekilde Silindi', 'Ok');
+              this.getProductData(0, this.pageSize);
+            }
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+      }
+    });
   }
 
   addNewProduct() {

@@ -21,7 +21,7 @@ export class ProductDialogComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ProductDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { mode: 'edit' | 'new', product?: any }
+    @Inject(MAT_DIALOG_DATA) public data: { mode: 'edit' | 'new', product?: PutAddProduct }
   ) { }
 
   ngOnInit(): void {
