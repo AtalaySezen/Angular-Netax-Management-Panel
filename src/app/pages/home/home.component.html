@@ -1,1 +1,43 @@
-<p>home works!</p>
+<app-header></app-header>
+<div class="container">
+    <div class="table-container">
+        <mat-form-field>
+            <mat-label>Arama</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+        <button mat-flat-button>Ürün Ekle</button>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort #firstSort="matSort">
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ürün Adı </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fiyat</th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> İşlemler</th>
+                <td mat-cell *matCellDef="let element">
+                    <button class="btn-icon" mat-fab aria-label="Example icon button with a delete icon">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button class="btn-icon" mat-fab aria-label="Example icon button with a delete icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row table-message" *matNoDataRow>
+                <td class="mat-cell" colspan="4" translate>
+                    <span>Filtreye uyan veri bulunamadı
+                        <span>"{{input?.value}}"</span>
+                    </span>
+                </td>
+            </tr>
+        </table>
+        <mat-paginator [length]="totalItemCount" [pageSize]="pageSize" [hidePageSize]="true"
+            aria-label="Select page of datas" (page)="onPageChange($event)">
+        </mat-paginator>
+    </div>
+</div>
