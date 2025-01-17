@@ -1,59 +1,78 @@
-# NetaxManagementPanel
+![image](https://github.com/user-attachments/assets/dbf464a2-4349-4331-99b7-8d133bb468f8)
+# Documentation for Angular Role-Based Admin Panel Application
+## Overview
+This application is a role-based Admin Panel built with Angular. It features a modular structure and leverages Angular Material for UI components. The app uses the DummyJSON API for data retrieval and demonstrates essential functionalities such as user authentication, role-based authorization, and product management (CRUD operations).
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.4.
+# Sample Credentials
+To test the application, you can use the following sample credentials based on the roles available:
 
-## Development server
+Role	Username	Password
+Admin	emilys	emilyspass
+Editor	editor	editorpass
+Moderator	oliviaw	oliviawpass
 
-To start a local development server, run:
+# Features
+User Authentication
 
-```bash
-ng serve
-```
+Token-based session management (JWT simulation).
+Token storage and validation after a successful login.
+Role-Based Authorization
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Admin: Full access to product management (Create, Read, Update, Delete).
+Editor: Allowed to create and update products.
+User: Read-only access to product listings.
+Product Management
 
-## Code scaffolding
+CRUD Operations:
+Product creation and updates are restricted to Admin and Editor roles.
+Product deletion is restricted to Admin.
+All roles can view product listings.
+Features:
+Search functionality within product listings.
+Pagination for efficient data navigation.
+Filtering options for specific data retrieval.
+Modular Architecture
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Code is organized into feature modules for better scalability and maintainability.
+API Integration
 
-```bash
-ng generate component component-name
-```
+Utilizes the DummyJSON API for fetching and managing product data.
+Angular Guards and Interceptors
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+AuthGuard: Ensures authentication for accessing specific routes.
+RoleGuard: Enforces role-based access control for various features.
+HTTP Interceptor: Automatically attaches the token to outgoing requests.
+Responsive UI with Angular Material
 
-```bash
-ng generate --help
-```
+Includes tables, forms, and modals styled with Angular Material.
 
-## Building
+# Technical Details
+Framework: Angular
+API Source: DummyJSON API
+Styling Library: Angular Material
+Routing: Role-based route protection implemented with Angular Guards.
+Authentication: Simulated JWT authentication with local storage for token management.
+Data Handling: HTTP Client for API communication and interceptors for token management.
+Search and Pagination:
+Search: Users can search for products within the listings.
+Pagination: Listings are paginated to improve usability and performance.
 
-To build the project run:
+# How to Run the Application
 
-```bash
-ng build
-```
+Install Dependencies
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Run npm install to install all required packages.
 
-## Running unit tests
+Start the Application
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Run ng serve to start the development server.
+Access the app at http://localhost:4200.
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# Code Structure
+Modules:
+Authentication Module
+Product Management Module
+Shared Module for reusable components
+Services:
+AuthService for authentication and role management
+ProductService for handling API communication
