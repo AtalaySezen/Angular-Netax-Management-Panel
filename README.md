@@ -57,6 +57,13 @@ Search and Pagination:
 Search: Users can search for products within the listings.
 Pagination: Listings are paginated to improve usability and performance.
 
+## API Documentation
+
+The API endpoints used in this project are documented in Postman. You can view the full documentation at the link below:
+
+[View API Documentation on Postman](https://documenter.getpostman.com/view/28053393/2sAYQajqdG)
+
+
 # How to Run the Application
 
 Install Dependencies
