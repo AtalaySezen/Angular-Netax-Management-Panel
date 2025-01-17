@@ -36,12 +36,15 @@ export class HomeComponent {
   dataSource = new MatTableDataSource<Product>();
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  displayedColumns: string[] = ['title', 'price', 'actions'];
+  displayedColumns: string[] = ['title', 'price'];
   pageSize: number = 12;
   totalItemCount: number = 0;
 
   ngOnInit() {
     this.getProductData(0, this.pageSize);
+    if (this.authService.userRole !== 'user') {
+      this.displayedColumns.push('actions');
+    }
   }
 
   getProductData(skip: number, limit: number): void {
@@ -74,7 +77,7 @@ export class HomeComponent {
       verticalPosition: this.verticalPosition,
     });
   }
-  
+
   //#region Dialogs
   deleteProduct(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
