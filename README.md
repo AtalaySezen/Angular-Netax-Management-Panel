@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/dbf464a2-4349-4331-99b7-8d133bb468f8)
 # Documentation for Angular Role-Based Admin Panel Application
 This application is a role-based Admin Panel built with Angular. It features a modular structure and leverages Angular Material for UI components. The app uses the DummyJSON API for data retrieval and demonstrates essential functionalities such as user authentication, role-based authorization, and product management (CRUD operations).
 
@@ -10,6 +9,8 @@ To test the application, you can use the following sample credentials based on t
 | **Admin**  | `emilys`     | `emilyspass`    |
 | **Moderator** | `oliviaw`     | `oliviawpass`    |
 | **User**   | `averyp`       | `averyppass`      |
+
+![image](https://github.com/user-attachments/assets/dbf464a2-4349-4331-99b7-8d133bb468f8)
 
 # Features
 User Authentication
