@@ -18,12 +18,15 @@ Token storage and validation after a successful login.
 Role-Based Authorization
 
 Admin: Full access to product management (Create, Read, Update, Delete).
-Editor: Allowed to create and update products.
+<br>
+Moderator: Allowed to create and update products.
+<br>
 User: Read-only access to product listings.
 Product Management
 
 CRUD Operations:
-Product creation and updates are restricted to Admin and Editor roles.
+Product creation and updates are restricted to Admin and Moderator roles.
+<br>
 Product deletion is restricted to Admin.
 All roles can view product listings.
 Features:
@@ -39,21 +42,33 @@ Utilizes the DummyJSON API for fetching and managing product data.
 Angular Guards and Interceptors
 
 AuthGuard: Ensures authentication for accessing specific routes.
+<br>
 RoleGuard: Enforces role-based access control for various features.
+<br>
 HTTP Interceptor: Automatically attaches the token to outgoing requests.
+<br>
+<br>
 Responsive UI with Angular Material
 
 Includes tables, forms, and modals styled with Angular Material.
 
 # Technical Details
 Framework: Angular
+<br>
 API Source: DummyJSON API
+<br>
 Styling Library: Angular Material
+<br>
 Routing: Role-based route protection implemented with Angular Guards.
+<br>
 Authentication: Simulated JWT authentication with local storage for token management.
+<br>
 Data Handling: HTTP Client for API communication and interceptors for token management.
+<br>
+<br>
 Search and Pagination:
 Search: Users can search for products within the listings.
+<br>
 Pagination: Listings are paginated to improve usability and performance.
 
 ## API Documentation
