@@ -74,7 +74,8 @@ export class HomeComponent {
       verticalPosition: this.verticalPosition,
     });
   }
-
+  
+  //#region Dialogs
   deleteProduct(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
@@ -134,5 +135,5 @@ export class HomeComponent {
       }
     });
   }
-
+  //#endregion
 }

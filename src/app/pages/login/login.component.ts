@@ -27,7 +27,6 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
 
-
   login() {
     if (this.loginForm.valid) {
       this.authService.Login(this.loginForm.value.username!, this.loginForm.value.password!).subscribe({
@@ -42,7 +41,6 @@ export class LoginComponent {
       })
     }
   }
-
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
