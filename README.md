@@ -88,12 +88,3 @@ Start the Application
 
 Run ng serve to start the development server.
 Access the app at http://localhost:4200.
-
-# Code Structure
-Modules:
-Authentication Module
-Product Management Module
-Shared Module for reusable components
-Services:
-AuthService for authentication and role management
-ProductService for handling API communication
