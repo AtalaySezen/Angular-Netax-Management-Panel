@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-loader',
-  imports: [MatProgressSpinnerModule,CommonModule],
+  imports: [MatProgressSpinnerModule, CommonModule],
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss'
 })

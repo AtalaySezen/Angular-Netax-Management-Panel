@@ -10,7 +10,6 @@ export const apiInterceptor: HttpInterceptorFn = (request, next) => {
     const loaderService = inject(LoaderService);
     const token = authService.token; //Auth.service.ts üzerinden tokeni alır.
 
-    //#region istek atılan url auth/login ya da auth/register içeriyor mu kontrol eder, içermiyorsa eğer token'i alır.      
     if (!request.url.includes('auth/login')) {
         if (token) {
             loaderService.setLoading(true, request.url); //API isteği başlayınca loader gözükür.
@@ -25,7 +24,6 @@ export const apiInterceptor: HttpInterceptorFn = (request, next) => {
             });
         }
     }
-    //#endregion
 
     return next(request).pipe(
         catchError((err: HttpErrorResponse) => {

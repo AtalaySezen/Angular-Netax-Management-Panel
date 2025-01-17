@@ -1,4 +1,4 @@
-<form [formGroup]="productForm" class="product-form" (ngSubmit)="save()">
+<form [formGroup]="productForm" class="product-form">
     <mat-form-field>
         <mat-label>Ürün Adı</mat-label>
         <input formControlName="title" matInput>
@@ -8,7 +8,8 @@
         <input formControlName="price" type="number" matInput>
     </mat-form-field>
     <div class="button-group">
-        <button mat-flat-button [disabled]="productForm.invalid">{{ isEditMode ? 'Güncelle' : 'Kaydet' }}</button>
+        <button mat-flat-button (click)="save()" [disabled]="productForm.invalid">{{ isEditMode ? 'Güncelle' : 'Kaydet'
+            }}</button>
         <button mat-flat-button (click)="close()">Kapat</button>
     </div>
 </form>
