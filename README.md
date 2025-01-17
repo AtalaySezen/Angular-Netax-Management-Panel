@@ -10,8 +10,6 @@ To test the application, you can use the following sample credentials based on t
 | **Moderator** | `oliviaw`     | `oliviawpass`    |
 | **User**   | `averyp`       | `averyppass`      |
 
-![image](https://github.com/user-attachments/assets/dbf464a2-4349-4331-99b7-8d133bb468f8)
-
 # Features
 User Authentication
 
